@@ -1,0 +1,76 @@
+
+$font-family: Arial, Helvetica, sans-serif;
+
+@mixin border-factor($width,$style,$color){
+  border-width: $width;
+  border-style: $style;
+  border-color: $color;
+}
+
+@mixin font-factor ($size, $weight, $color){
+  font-weight: $weight;
+  font-size: $size;
+  color: $color;
+  font-family: $font-family;
+}
+
+h1{
+  @include font-factor(250%, bold, #369);
+}
+
+.app-header {
+  padding-left: 10px;
+}
+
+.widget-container {
+  width: 300px;
+  float: left;
+  margin: 30px 5px 0px 30px;
+  @include border-factor(1px, solid, #369);
+}
+.section-header{
+  padding: 5px 5px;
+  h4 {
+    @include font-factor(14px, bold, #369);
+  } 
+}
+
+.from-currency-group,
+.to-currency-group {
+  padding: 5px 5px;
+  label {
+    font-size: 13px;
+  }
+  .slds-form-element__control {
+    padding-bottom: 3px;
+  }
+}
+.alert-danger{
+  color: red;
+  background-color: #eded7b;
+}
+.footnote {
+  clear: left;
+  padding: 5px 5px;
+  .link-text{
+    color: blue;
+    float: right;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .disclaimer{
+    clear: left;
+    display: block;
+    background-color: #eded7b;
+    padding-left: 3px;
+  }
+}
+
+/*SLDS Overrides*/
+.slds-input{
+  width: 100px;
+}
+.slds-select{
+  width: 100px;
+  margin-left: 30px;
+}
