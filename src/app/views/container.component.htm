@@ -2,12 +2,15 @@
   <div class="app-header">
     <h1>{{appName}}</h1>
   </div>
-  <div class="widgets-container">
+  <div *ngIf="!configErrorObj.configErrFlag; else errorContainer" class="widgets-container">
     
     <converter-widget></converter-widget>
     <converter-widget></converter-widget>
     <converter-widget></converter-widget>
 
   </div>
+
+  <ng-template #errorContainer class="alert-danger">{{configErrorObj.configErrMsg}}</ng-template>
+
 </div>
 

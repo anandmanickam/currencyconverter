@@ -3,12 +3,15 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 
+import {appStoreProviders} from './../store/app.store';
+
 import { ContainerComponent }  from './container.component';
 import { ConverterComponent } from './converter-widget.component';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpModule ],
   declarations: [ ContainerComponent, ConverterComponent ],
+  providers: [appStoreProviders],
   bootstrap: [ ContainerComponent ]
 })
 export class AppModule { }
