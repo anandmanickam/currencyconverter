@@ -3,6 +3,7 @@ import { Reducer} from './../reducers/reducer.def';
 import { ActionTypes} from './../constants/app.constants';
 import { AppState} from './../models/app-state.model';
 import { WidgetModel } from './../models/converter-widget.model'
+import { widgetReducer } from './widget-reducer';
 
 var emptyWidgetModelArray: WidgetModel[] = [];
 const initialState: AppState = { 
@@ -14,10 +15,10 @@ export const containerReducer: Reducer<AppState> =
     switch (action.type) {
 
       case ActionTypes.LOAD_STORE:
-        console.log('payload->', action.payload);
+        console.log('store->', action);
         return Object.assign({}, state, action.payload);
-
+      
       default:
-        return state;
+        return {...state, widgetModels: widgetReducer(state.widgetModels, action)};
     }
   };

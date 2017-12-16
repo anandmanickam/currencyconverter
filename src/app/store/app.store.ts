@@ -14,6 +14,6 @@ export function createAppStore(): Store<AppState> {
   );
 }
 
-export const appStoreProviders = [
+export const appStoreProvider = [
   { provide: AppStore, useFactory: createAppStore }
 ];

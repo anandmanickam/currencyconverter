@@ -1,16 +1,14 @@
-h1 {
-  font-weight: bold;
-  font-size: 250%;
-  color: #369;
-  font-family: Arial, Helvetica, sans-serif; }
+.app-container {
+  margin: 20px 20px; }
 
 .app-header {
-  padding-left: 10px; }
+  border-bottom: 1px solid #369;
+  font-size: 18px; }
 
 .widget-container {
-  width: 300px;
+  min-width: 300px;
   float: left;
-  margin: 30px 5px 0px 30px;
+  margin-top: 20px;
   border-width: 1px;
   border-style: solid;
   border-color: #369; }
@@ -32,6 +30,17 @@ h1 {
   .from-currency-group .slds-form-element__control,
   .to-currency-group .slds-form-element__control {
     padding-bottom: 3px; }
+    .from-currency-group .slds-form-element__control .fixed-input-width,
+    .to-currency-group .slds-form-element__control .fixed-input-width {
+      width: 58%; }
+    .from-currency-group .slds-form-element__control .slds-input.slds-is-disabled, .from-currency-group .slds-form-element__control .slds-input[disabled],
+    .to-currency-group .slds-form-element__control .slds-input.slds-is-disabled,
+    .to-currency-group .slds-form-element__control .slds-input[disabled] {
+      background-color: white !important; }
+    .from-currency-group .slds-form-element__control .fixed-select-width,
+    .to-currency-group .slds-form-element__control .fixed-select-width {
+      width: 30%;
+      margin-left: 10px; }
 
 .alert-danger {
   color: red;
@@ -48,13 +57,4 @@ h1 {
   .footnote .disclaimer {
     clear: left;
     display: block;
-    background-color: #eded7b;
     padding-left: 3px; }
-
-/*SLDS Overrides*/
-.slds-input {
-  width: 100px; }
-
-.slds-select {
-  width: 100px;
-  margin-left: 30px; }

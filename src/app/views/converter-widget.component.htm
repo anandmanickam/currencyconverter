@@ -1,32 +1,28 @@
-<!-- <div class="widget-container">
+<div class="widget-container">
   
   <div class="section-header">
-    <h4>Currency Converter Instance {{converterInstance.instanceName + 1}}</h4>
+    <h4>Currency converter</h4>
   </div>
 
   <div class="from-currency-group">
 
     <span class="slds-form-element">
     
-      <label class="slds-form-element__label" for="converterInstance.fromCurrency.currencyValue">
-        Type in amount and select the currency:</label><br/>
+      <label class="slds-form-element__label" for="_widgetModel.fromCurrency.currencyValue">
+        Type in amount and select currency:</label><br/>
       
       <div class="slds-form-element__control">
 
-        <input type="number" class="slds-input" id="fromCurrencyValue" min=0 (ngModelChange)="onInputChange(synthesisEvent($event,'fromCurrency','number'))"
-          [ngModel]="converterInstance.fromCurrency.currencyValue" name="fromCurrency"
+        <input type="text" class="fixed-input-width slds-input" id="fromCurrencyValue" (ngModelChange)="onInputChange(synthesisEvent($event,'fromCurrency','text'))"
+          [ngModel]="_widgetModel.fromCurrency.currencyValue || '0.00'" name="fromCurrency"
           >
 
-        <select class="slds-select" id="fromCurrencyType" (ngModelChange)="onSelectionChange(synthesisEvent($event,'fromCurrency','select-one'))"
-          [ngModel]="converterInstance.fromCurrency.currencyType"  name="fromCurrency"
+        <select class="fixed-select-width slds-select" id="fromCurrencyType" (ngModelChange)="onSelectionChange(synthesisEvent($event,'fromCurrency','select-one'))"
+          [ngModel]="_widgetModel.fromCurrency.currencyType"  name="fromCurrency"
         >
-          <option *ngFor = "let currency of fromCurrencyTypes" [value]="currency">{{currency}}</option> 
+          <option *ngFor = "let currency of currencyTypes" [value]="currency">{{currency}}</option> 
         </select>
       </div>
-      
-      <span *ngIf="fromCurErrMsg!==''" class="alert-danger">
-        {{fromCurErrMsg}}
-      </span>
 
     </span>
     
@@ -36,28 +32,24 @@
 
     <span class="slds-form-element">
     
-      <label class="slds-form-element__label" for="converterInstance.toCurrency.currencyValue">
+      <label class="slds-form-element__label" for="_widgetModel.toCurrency.currencyValue">
         Converted amount:</label><br/>
       
       <div class="slds-form-element__control">
 
-        <input type="number" class="slds-input" id="toCurrencyValue" min=0 (ngModelChange)="onInputChange(synthesisEvent($event,'toCurrency','number'))"
-        [ngModel]="converterInstance.toCurrency.currencyValue" name="toCurrency"
+        <input type="text" disabled="true" class="fixed-input-width slds-input" id="toCurrencyValue" (ngModelChange)="onInputChange(synthesisEvent($event,'toCurrency','number'))"
+        [ngModel]="_widgetModel.toCurrency.currencyValue || '0.00'" name="toCurrency"
         >
         
-        <select class="slds-select" id="toCurrencyType" (ngModelChange)="onSelectionChange(synthesisEvent($event,'toCurrency','select-one'))"
-        [ngModel]="converterInstance.toCurrency.currencyType" name="toCurrency"
+        <select class="fixed-select-width slds-select" id="toCurrencyType" (ngModelChange)="onSelectionChange(synthesisEvent($event,'toCurrency','select-one'))"
+        [ngModel]="_widgetModel.toCurrency.currencyType" name="toCurrency"
         >
-          <option *ngFor = "let currency of toCurrencyTypes" [value]="currency">{{currency}}</option>
+          <option *ngFor = "let currency of currencyTypes" [value]="currency">{{currency}}</option>
         </select>
     
       </div>
 
-      <span *ngIf="toCurErrMsg!==''" class="alert-danger">
-        {{toCurErrMsg}}
-      </span>
-
-    </span>
+  </span>
 
   </div>
   
@@ -75,4 +67,4 @@
     </div>
   
   </div>
-</div> -->
+</div>

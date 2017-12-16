@@ -1,24 +1,28 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Input, Inject } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs';
 import { Store } from 'redux';
+
 import { AppStore } from './../store/store.token';
 import { AppState } from './../models/app-state.model';
-import { appStoreProviders } from './../store/app.store';
+import { appStoreProvider } from './../store/app.store';
 import { WidgetModel } from '../models/converter-widget.model';
 import { Constants } from '../constants/app.constants';
 import { HttpServiceProvider } from '../services/http-service.component';
+import { CurrencyModel } from '../models/app.currency.model';
 
 @Component({
   selector: 'converter-widget',
   templateUrl: 'app/views/converter-widget.component.htm',
-  providers: [appStoreProviders, HttpServiceProvider]
+  providers: [appStoreProvider, HttpServiceProvider]
 })
 
-export class ConverterComponent implements OnInit{ 
+export class ConverterComponent { 
 
-  static WidgetCount = 0;
   _widgetModel:WidgetModel;
-  widgetInstance:number;
+  currencyTypes:string[] = Constants.CURRENCY_TYPES_ARRAY;
+  @Input('widget-instance') widgetInstance:number;
+
   httpErrorObj:any = {
     httpErrFlag: false,
     httpErrMsg: Constants.HTTP_ERROR_MSG
@@ -28,17 +32,17 @@ export class ConverterComponent implements OnInit{
   constructor(private _httpservice: HttpServiceProvider,
     @Inject(AppStore) private store: Store<AppState>
   ) { 
-    this.widgetInstance = ConverterComponent.WidgetCount;
-    ConverterComponent.WidgetCount ++;
+    store.subscribe(() => this.loadWidgetFromStore());
     this.loadWidgetFromStore();
   }
 
   loadWidgetFromStore(){
-    console.log('Store State ->', this.store.getState(), this.store.getState().widgetModels[this.widgetInstance] );
+    console.log('Store State ->',
+      this.store.getState(), this.store.getState().widgetModels[this.widgetInstance] );
+      this._widgetModel = this.store.getState().widgetModels[this.widgetInstance]
+        || new WidgetModel(new CurrencyModel(), new CurrencyModel(Constants.CURRENCY_TYPES_ARRAY[1]));
   }
-  ngOnInit(){
-    console.log('oninit Store State ->', this.store.getState(), this.store.getState().widgetModels[this.widgetInstance]);
-  }
+  
   // onInputChange(event: any){
 
   //   if (this.isValidEvent(event)){
