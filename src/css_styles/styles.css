@@ -1,3 +1,8 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0; }
+
 .app-container {
   margin: 20px 20px; }
 
@@ -6,7 +11,7 @@
   font-size: 18px; }
 
 .widget-container {
-  min-width: 300px;
+  min-width: 250px;
   float: left;
   margin-top: 20px;
   border-width: 1px;
@@ -14,16 +19,16 @@
   border-color: #369; }
 
 .section-header {
-  padding: 5px 5px; }
+  padding: 5px 10px 5px 10px; }
   .section-header h4 {
-    font-weight: bold;
+    font-weight: "";
     font-size: 14px;
     color: #369;
     font-family: Arial, Helvetica, sans-serif; }
 
 .from-currency-group,
 .to-currency-group {
-  padding: 5px 5px; }
+  padding: 5px 10px 5px 10px; }
   .from-currency-group label,
   .to-currency-group label {
     font-size: 13px; }
@@ -39,8 +44,9 @@
       background-color: white !important; }
     .from-currency-group .slds-form-element__control .fixed-select-width,
     .to-currency-group .slds-form-element__control .fixed-select-width {
-      width: 30%;
-      margin-left: 10px; }
+      width: 40%;
+      float: right;
+      background-color: lightgray !important; }
 
 .alert-danger {
   color: red;
@@ -48,13 +54,14 @@
 
 .footnote {
   clear: left;
-  padding: 5px 5px; }
+  padding: 5px 10px 5px 10px; }
   .footnote .link-text {
     color: blue;
     float: right;
     text-decoration: underline;
     cursor: pointer; }
   .footnote .disclaimer {
-    clear: left;
+    clear: both;
     display: block;
-    padding-left: 3px; }
+    padding-left: 3px;
+    max-width: 250px; }

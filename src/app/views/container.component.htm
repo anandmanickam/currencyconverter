@@ -5,11 +5,10 @@
   </div>
 
   <div class="widgets-container">
-    <div class="slds-grid slds-grid_pull-padded-medium">
-      <div *ngFor="let widget of widgetModels">
-        <div class="slds-col slds-p-horizontal_medium">
-          <converter-widget></converter-widget>
-        </div>
+    <div class="slds-grid slds-wrap slds-grid_pull-padded">
+      <div  *ngFor="let widget of widgetModels" 
+        class="slds-p-horizontal_small slds-size_1-of-1 slds-medium-size_3-of-6 slds-large-size_4-of-12">
+        <converter-widget></converter-widget>
       </div> 
     </div>
   </div>

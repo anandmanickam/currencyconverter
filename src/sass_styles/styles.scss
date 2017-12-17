@@ -1,43 +1,63 @@
-
 $font-family: Arial, Helvetica, sans-serif;
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 @mixin border-factor($width,$style,$color){
+
   border-width: $width;
   border-style: $style;
   border-color: $color;
+
 }
 
 @mixin font-factor ($size, $weight, $color){
+
   font-weight: $weight;
   font-size: $size;
   color: $color;
   font-family: $font-family;
+
 }
 
 .app-container {
+
   margin: 20px 20px;
+
 }
+
 .app-header {
+
   border-bottom: 1px solid #369;
   font-size: 18px;
+
 }
 
 .widget-container {
-  min-width: 300px;
+
+  min-width: 250px;
   float: left;
   margin-top: 20px;
   @include border-factor(1px, solid, #369);
+
 }
+
 .section-header{
-  padding: 5px 5px;
+
+  padding: 5px 10px 5px 10px;
   h4 {
-    @include font-factor(14px, bold, #369);
+    @include font-factor(14px, '', #369);
   } 
+
 }
 
 .from-currency-group,
 .to-currency-group {
-  padding: 5px 5px;
+
+  padding: 5px 10px 5px 10px;
   label {
     font-size: 13px;
   }
@@ -49,29 +69,40 @@ $font-family: Arial, Helvetica, sans-serif;
     .slds-input.slds-is-disabled, .slds-input[disabled]{
       background-color: white !important;
     }
+
     .fixed-select-width{
-      width: 30%;
-      margin-left: 10px;
+      width: 40%;
+      float: right;
+      background-color: lightgray !important;
     }
   }
-  
 }
+
 .alert-danger{
+
   color: red;
   background-color: #eded7b;
+
 }
+
 .footnote {
+
   clear: left;
-  padding: 5px 5px;
+  padding: 5px 10px 5px 10px;
+
   .link-text{
     color: blue;
     float: right;
     text-decoration: underline;
     cursor: pointer;
   }
+
   .disclaimer{
-    clear: left;
+
+    clear: both;
     display: block;
     padding-left: 3px;
+    max-width: 250px;
   }
+
 }

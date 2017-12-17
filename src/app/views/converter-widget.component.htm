@@ -13,7 +13,7 @@
       
       <div class="slds-form-element__control">
 
-        <input type="text" class="fixed-input-width slds-input" id="fromCurrencyValue" (ngModelChange)="onInputChange(synthesisEvent($event,'fromCurrency','text'))"
+        <input type="currency" class="fixed-input-width slds-input" id="fromCurrencyValue" (ngModelChange)="onInputChange(synthesisEvent($event,'fromCurrency','number'))"
           [ngModel]="_widgetModel.fromCurrency.currencyValue || '0.00'" name="fromCurrency"
           >
 
@@ -62,7 +62,7 @@
   
     <div *ngIf="disclaimerStatus" class="disclaimer">
       <span class="disclaimer-content">
-        The currency Rates are updated everytime currency type is changed and the rates are calculated everytime the value is changed.
+        The currency rates are updated everytime currency type is changed and the rates are calculated everytime the value is changed.
       </span>
     </div>
   

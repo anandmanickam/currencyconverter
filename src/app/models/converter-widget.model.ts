@@ -11,9 +11,9 @@ export class WidgetModel {
   }
 
   switchCurrencies(){
-    var _temp:CurrencyModel = new CurrencyModel();
-    _temp = this.fromCurrency;
-    this.fromCurrency = this.toCurrency;
-    this.toCurrency = _temp;
+    let _temp:CurrencyModel = Object.assign({}, this.fromCurrency);
+    this.fromCurrency = Object.assign({}, this.toCurrency);
+    _temp.currencyRates = {rates:{}};
+    this.toCurrency = {..._temp};
   }
 }

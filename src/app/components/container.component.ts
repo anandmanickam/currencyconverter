@@ -31,7 +31,8 @@ export class ContainerComponent implements OnInit {
 
   ngOnInit() {
   
-    this._httpservice.fetch(Constants.API_URL, 'base=' + Constants.CURRENCY_TYPES_ARRAY[0]).subscribe((response) => {
+    this._httpservice.fetch(Constants.API_URL, 'base=' + Constants.CURRENCY_TYPES_ARRAY[0])
+    .subscribe((response) => {
       var _httpResponse = true;
       if (Object.keys(response).length > 0) {
         for (var _i = 0; _i < Constants.WIDGET_INSTANCE; _i++){

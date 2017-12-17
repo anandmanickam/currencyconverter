@@ -15,7 +15,7 @@ import * as WidgetActions from '../actions/widget.actions';
 @Component({
   selector: 'converter-widget',
   templateUrl: 'app/views/converter-widget.component.htm',
-  providers: [HttpServiceProvider]
+  providers: [HttpServiceProvider],
 })
 
 export class ConverterComponent { 
@@ -39,7 +39,6 @@ export class ConverterComponent {
   }
 
   loadWidgetFromStore(){
-    console.log('loading from store...');
     this._widgetModel = this.store.getState().widgetModels[this.widgetInstance];
     this.httpErrFlg = !this.store.getState().isHttpRatesFetched;
   }
@@ -49,67 +48,62 @@ export class ConverterComponent {
   }
 
   onInputChange(event: any){
-    if(this.ValidateEvent(event)){
-      this.calculateRates(event);      
+    if(this.ValidateInputField(event)){
+      this._widgetModel.fromCurrency.currencyValue = event.target.value;
+      this.calculateRates();      
     }
   }
 
   onSelectionChange(event: any) {
     this.httpErrFlg = false;
-    var _currbase:string = this._widgetModel.fromCurrency.currencyType;
     if(event.target.name === Constants.FROM_CURRENCY){
+
         if(event.target.value === this._widgetModel.toCurrency.currencyType){
           this._widgetModel.switchCurrencies();
         } else {
-          _currbase = event.target.value;
+          this._widgetModel.fromCurrency.currencyType = event.target.value;
         }
-
-        this._httpservice.fetch(Constants.API_URL, 'base=' + _currbase)
-          .subscribe((response) => {
-            if (Object.keys(response).length !== 0) {
-              this._widgetModel.fromCurrency.currencyRates = response;
-            } else {
-              this.httpErrFlg = true;
-            }
-          });
+        this.fetchAndCalcCurRates(this._widgetModel.fromCurrency.currencyType);
 
     } else {
 
-      if(event.target.value === this._widgetModel.fromCurrency.currencyType){
-          this._widgetModel.switchCurrencies();
-
-          this._httpservice.fetch(Constants.API_URL, 'base=' + this._widgetModel.fromCurrency.currencyType)
-          .subscribe((response) => {
-            if (Object.keys(response).length !== 0) {
-              this._widgetModel.fromCurrency.currencyRates = response;
-            } else {
-              this.httpErrFlg = true;
-            }
-          });
-      }
-
+        if(event.target.value === this._widgetModel.fromCurrency.currencyType) {
+            this._widgetModel.switchCurrencies();
+            this.fetchAndCalcCurRates(this._widgetModel.fromCurrency.currencyType);
+        } else {
+          this._widgetModel.toCurrency.currencyType = event.target.value;
+          this.calculateRates();
+        }
+        
     }
-    this.calculateRates(event);
   }
   
+  fetchAndCalcCurRates(_baseCur){
+    this._httpservice.fetch(Constants.API_URL, 'base=' + _baseCur)
+      .subscribe((response) => {
+          if (Object.keys(response).length !== 0) {
+            this._widgetModel.fromCurrency.currencyRates = response;
+            this.calculateRates();
+          } else {
+            this.httpErrFlg = true;
+          }
+      });
+  }
+
   toggleDisclaimer() {
     this.disclaimerStatus = !this.disclaimerStatus;
   }
   
-  calculateRates(event:any){
-    this._widgetModel.fromCurrency.currencyValue = event.target.value;
+  calculateRates(){
     this._widgetModel.toCurrency.currencyValue = Number(
       (this._widgetModel.fromCurrency.currencyRates.rates[this._widgetModel.toCurrency.currencyType] *
       this._widgetModel.fromCurrency.currencyValue).toFixed(2));
       this.store.dispatch(WidgetActions.updateCurrencyValues(this._widgetModel,this.widgetInstance));
   }
 
-  ValidateEvent(event:any){
+  ValidateInputField(event:any){
     if(this.httpErrFlg){
       return false;
-    }
-    if(!new RegExp(/^[0-9]\d*(\.\d+)?$/).test(event.target.value)){   
-        event.target.value = this._widgetModel.fromCurrency.currencyValue;
     }
     return true;
   }
