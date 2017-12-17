@@ -13,7 +13,7 @@
       
       <div class="slds-form-element__control">
 
-        <input type="currency" class="fixed-input-width slds-input" id="fromCurrencyValue" (ngModelChange)="onInputChange(synthesisEvent($event,'fromCurrency','number'))"
+        <input type="number" class="fixed-input-width slds-input" id="fromCurrencyValue" (ngModelChange)="onInputChange(synthesisEvent($event,'fromCurrency','number'))"
           [ngModel]="_widgetModel.fromCurrency.currencyValue || '0.00'" name="fromCurrency"
           >
 

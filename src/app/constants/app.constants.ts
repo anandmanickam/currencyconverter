@@ -1,5 +1,5 @@
 export class Constants {
-  static WIDGET_INSTANCE = 7;
+  static WIDGET_INSTANCE = 3;
   static CURRENCY_TYPES_ARRAY: string[] = ['USD', 'CAD', 'EUR'];
   static FROM_CURRENCY:string = 'fromCurrency';
   static TO_CURRENCY:string = 'toCurrency';

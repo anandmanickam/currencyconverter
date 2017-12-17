@@ -11,6 +11,7 @@ import { Constants } from '../constants/app.constants';
 import { HttpServiceProvider } from '../services/http-service.component';
 import { CurrencyModel } from '../models/app.currency.model';
 import * as WidgetActions from '../actions/widget.actions';
+import {validateCurrency} from '../utils/app.validator';
 
 @Component({
   selector: 'converter-widget',
@@ -49,6 +50,7 @@ export class ConverterComponent {
 
   onInputChange(event: any){
     if(this.ValidateInputField(event)){
+      console.log('event.target.value->', event.target.value);
       this._widgetModel.fromCurrency.currencyValue = event.target.value;
       this.calculateRates();      
     }
@@ -74,7 +76,7 @@ export class ConverterComponent {
           this._widgetModel.toCurrency.currencyType = event.target.value;
           this.calculateRates();
         }
-        
+
     }
   }
   
@@ -102,9 +104,10 @@ export class ConverterComponent {
   }
 
   ValidateInputField(event:any){
-    if(this.httpErrFlg){
+    if(this.httpErrFlg || null === event.target.value){
       return false;
     }
+    event.target.value = validateCurrency(event.target.value);
     return true;
   }
 }
