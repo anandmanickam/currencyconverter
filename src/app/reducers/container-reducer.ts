@@ -15,7 +15,6 @@ export const containerReducer: Reducer<AppState> =
     switch (action.type) {
 
       case ActionTypes.LOAD_STORE:
-        console.log('store->', action);
         return Object.assign({}, state, action.payload);
       
       default:

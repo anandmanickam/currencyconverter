@@ -4,17 +4,15 @@
     <h1>{{appName}}</h1>
   </div>
 
-  <div *ngIf="!configErrorObj.configErrFlag; else errorContainer" class="widgets-container">
+  <div class="widgets-container">
     <div class="slds-grid slds-grid_pull-padded-medium">
-      <div *ngFor="let widget of widgetModels; let _i = index">
+      <div *ngFor="let widget of widgetModels">
         <div class="slds-col slds-p-horizontal_medium">
-          <converter-widget [widget-instance]="_i"></converter-widget>
+          <converter-widget></converter-widget>
         </div>
       </div> 
     </div>
   </div>
-
-  <ng-template #errorContainer class="alert-danger">{{configErrorObj.configErrMsg}}</ng-template>
 
 </div>
 

@@ -10,4 +10,10 @@ export class WidgetModel {
     this.toCurrency = _toCurrency
   }
 
+  switchCurrencies(){
+    var _temp:CurrencyModel = new CurrencyModel();
+    _temp = this.fromCurrency;
+    this.fromCurrency = this.toCurrency;
+    this.toCurrency = _temp;
+  }
 }

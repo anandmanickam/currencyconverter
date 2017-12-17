@@ -24,13 +24,6 @@ export class ContainerComponent implements OnInit {
 
   appName:String = 'Currency Converter Widgets';
   widgetModels: WidgetModel[] = [];
-  appConfig = {
-    widgetInstance: 0
-  };
-  configErrorObj = {
-    configErrFlag: false,
-    configErrMsg: Constants.CONFIG_ERROR_MSG
-  };
 
   constructor ( private _httpservice: HttpServiceProvider,
                 @Inject(AppStore) private store: Store<AppState>
@@ -61,5 +54,6 @@ export class ContainerComponent implements OnInit {
         isHttpRatesFetched: _httpResponse 
       }));
     });
+  
   }
 }
