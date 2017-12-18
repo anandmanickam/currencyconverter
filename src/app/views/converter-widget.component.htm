@@ -13,12 +13,23 @@
       
       <div class="slds-form-element__control">
 
-        <input type="number" class="fixed-input-width slds-input" id="fromCurrencyValue" (ngModelChange)="onInputChange(synthesisEvent($event,'fromCurrency','number'))"
-          [ngModel]="_widgetModel.fromCurrency.currencyValue || '0.00'" name="fromCurrency"
-          >
+        <input 
+          type="number"
+          name="fromCurrency"
+          id="fromCurrencyValue"
+          class="fixed-input-width slds-input" 
+          tabindex={{widgetInstance*100+1}}
+          [ngModel]="_widgetModel.fromCurrency.currencyValue || '0.00'"
+          (ngModelChange)="onInputChange(synthesisEvent($event,'fromCurrency','number'))"
+        />
 
-        <select class="fixed-select-width slds-select" id="fromCurrencyType" (ngModelChange)="onSelectionChange(synthesisEvent($event,'fromCurrency','select-one'))"
-          [ngModel]="_widgetModel.fromCurrency.currencyType"  name="fromCurrency"
+        <select 
+          name="fromCurrency"
+          id="fromCurrencyType"
+          tabindex={{widgetInstance*100+2}}
+          class="fixed-select-width slds-select"
+          [ngModel]="_widgetModel.fromCurrency.currencyType"
+          (ngModelChange)="onSelectionChange(synthesisEvent($event,'fromCurrency','select-one'))"  
         >
           <option *ngFor = "let currency of currencyTypes" [value]="currency">{{currency}}</option> 
         </select>
@@ -37,12 +48,22 @@
       
       <div class="slds-form-element__control">
 
-        <input type="text" disabled="true" class="fixed-input-width slds-input" id="toCurrencyValue"
-        [ngModel]="_widgetModel.toCurrency.currencyValue || '0.00'" name="toCurrency"
-        >
+        <input 
+          type="text"
+          name="toCurrency"
+          disabled="true"
+          class="fixed-input-width slds-input"
+          id="toCurrencyValue"
+          [ngModel]="_widgetModel.toCurrency.currencyValue || '0.00'" 
+        />
         
-        <select class="fixed-select-width slds-select" id="toCurrencyType" (ngModelChange)="onSelectionChange(synthesisEvent($event,'toCurrency','select-one'))"
-        [ngModel]="_widgetModel.toCurrency.currencyType" name="toCurrency"
+        <select 
+          id="toCurrencyType"
+          name="toCurrency"
+          tabindex={{widgetInstance*100+3}}
+          class="fixed-select-width slds-select"
+          (ngModelChange)="onSelectionChange(synthesisEvent($event,'toCurrency','select-one'))"
+          [ngModel]="_widgetModel.toCurrency.currencyType"
         >
           <option *ngFor = "let currency of currencyTypes" [value]="currency">{{currency}}</option>
         </select>
@@ -58,7 +79,12 @@
   </div>
 
   <div class="footnote">
-    <span class="link-text" (click)="toggleDisclaimer()"> Disclaimer </span>
+    <span 
+      class="link-text"
+      (click)="toggleDisclaimer()"
+      (keydown)="keyBindVerify($event)"
+      tabindex={{widgetInstance*100+4}}
+    > Disclaimer </span>
   
     <div *ngIf="disclaimerStatus" class="disclaimer">
       <span class="disclaimer-content">

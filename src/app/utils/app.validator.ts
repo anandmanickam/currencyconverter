@@ -2,14 +2,13 @@ export const validateCurrency = (_input:any) => {
     
     let _strIn:string = <string>_input;
 
-    console.log('_strIn->', _strIn);
-    if(new RegExp(/^\$?[0-9][0-9,]*[0-9]\.?[0-9]{0,2}$/i).test(_strIn)
-        && _strIn[_strIn.length - 1] !== '.'){
+    console.log('_strIn->', _strIn, _strIn[_strIn.length - 1]);
+    if(new RegExp(/^\$?[0-9][0-9,]*[0-9]\.?[0-9]{0,2}$/i).test(_strIn)){
         return _input;
     }
 
     /* double decimal check */
-    while(_strIn.lastIndexOf('.') !== _strIn.indexOf('.')){
+    while(_strIn.indexOf('.') !== _strIn.lastIndexOf('.')){
         _strIn = _strIn.slice(0, _strIn.lastIndexOf('.'))
             .concat( _strIn.slice(_strIn.lastIndexOf('.') + 1, _strIn.length));
     }

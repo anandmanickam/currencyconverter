@@ -50,7 +50,6 @@ export class ConverterComponent {
 
   onInputChange(event: any){
     if(this.ValidateInputField(event)){
-      console.log('event.target.value->', event.target.value);
       this._widgetModel.fromCurrency.currencyValue = event.target.value;
       this.calculateRates();      
     }
@@ -92,6 +91,12 @@ export class ConverterComponent {
       });
   }
 
+  keyBindVerify(event){
+    if(event.which == 32 || event.which == 13){
+      this.toggleDisclaimer();
+    }
+  }
+
   toggleDisclaimer() {
     this.disclaimerStatus = !this.disclaimerStatus;
   }
@@ -104,10 +109,10 @@ export class ConverterComponent {
   }
 
   ValidateInputField(event:any){
-    if(this.httpErrFlg || null === event.target.value){
+    if(this.httpErrFlg){
       return false;
     }
-    event.target.value = validateCurrency(event.target.value);
     return true;
   }
+
 }
