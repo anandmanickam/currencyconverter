@@ -11,7 +11,6 @@ import { Constants } from '../constants/app.constants';
 import { HttpServiceProvider } from '../services/http-service.component';
 import { CurrencyModel } from '../models/app.currency.model';
 import * as WidgetActions from '../actions/widget.actions';
-import {validateCurrency} from '../utils/app.validator';
 
 @Component({
   selector: 'converter-widget',
