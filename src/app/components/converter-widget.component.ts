@@ -58,27 +58,20 @@ export class ConverterComponent {
     this.httpErrFlg = false;
     if(event.target.name === Constants.FROM_CURRENCY){
 
-        if(event.target.value === this._widgetModel.toCurrency.currencyType){
-          this._widgetModel.switchCurrencies();
-        } else {
-          this._widgetModel.fromCurrency.currencyType = event.target.value;
-        }
-        this.fetchAndCalcCurRates(this._widgetModel.fromCurrency.currencyType);
-
+      this._widgetModel.fromCurrency.currencyType = event.target.value;
+      this.fetchAndCalcCurRates(this._widgetModel.fromCurrency.currencyType);
+      
     } else {
 
-        if(event.target.value === this._widgetModel.fromCurrency.currencyType) {
-            this._widgetModel.switchCurrencies();
-            this.fetchAndCalcCurRates(this._widgetModel.fromCurrency.currencyType);
-        } else {
-          this._widgetModel.toCurrency.currencyType = event.target.value;
-          this.calculateRates();
-        }
+      this._widgetModel.toCurrency.currencyType = event.target.value;
 
     }
-  }
+
+    this.calculateRates();
+    
+    }
   
-  fetchAndCalcCurRates(_baseCur){
+  fetchAndCalcCurRates(_baseCur:string){
     this._httpservice.fetch(Constants.API_URL, 'base=' + _baseCur)
       .subscribe((response) => {
           if (Object.keys(response).length !== 0) {
@@ -90,7 +83,7 @@ export class ConverterComponent {
       });
   }
 
-  keyBindVerify(event){
+  keyBindVerify(event:KeyboardEvent){
     if(event.which == 32 || event.which == 13){
       this.toggleDisclaimer();
     }
@@ -101,9 +94,11 @@ export class ConverterComponent {
   }
   
   calculateRates(){
-    this._widgetModel.toCurrency.currencyValue = Number(
-      (this._widgetModel.fromCurrency.currencyRates.rates[this._widgetModel.toCurrency.currencyType] *
-      this._widgetModel.fromCurrency.currencyValue).toFixed(2));
+    this._widgetModel.toCurrency.currencyValue = 
+    (Number((
+      ( this._widgetModel.fromCurrency.currencyRates.rates[this._widgetModel.toCurrency.currencyType] || 1) *
+      ( Number.parseFloat(this._widgetModel.fromCurrency.currencyValue)  || 0)
+    ).toFixed(2))).toString();
       this.store.dispatch(WidgetActions.updateCurrencyValues(this._widgetModel,this.widgetInstance));
   }
 

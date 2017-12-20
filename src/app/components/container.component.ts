@@ -37,8 +37,8 @@ export class ContainerComponent implements OnInit {
       if (Object.keys(response).length > 0) {
         for (var _i = 0; _i < Constants.WIDGET_INSTANCE; _i++){
           var _indexModel = new WidgetModel(
-            new CurrencyModel(Constants.CURRENCY_TYPES_ARRAY[0], 0.00, response),
-            new CurrencyModel(Constants.CURRENCY_TYPES_ARRAY[1], 0.00));
+            new CurrencyModel(Constants.CURRENCY_TYPES_ARRAY[0], '0.00', response),
+            new CurrencyModel(Constants.CURRENCY_TYPES_ARRAY[1], '0.00'));
           this.widgetModels.push(_indexModel);
         }
       } else {
