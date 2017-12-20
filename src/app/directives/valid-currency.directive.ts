@@ -1,17 +1,16 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, Renderer2, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
   selector: '[ValidCurrency]'
 })
 export class ValidCurrencyDirective {
 
-    constructor(private el: ElementRef) { }
+    constructor(private renderer: Renderer2, private el: ElementRef) { }
     @Input('ValidCurrency') validCurrency: boolean;
     @Input('CurtDecimals') decimalPlaces: boolean;
 
     @HostListener('keydown', ['$event']) onKeyDown(event:any) {
         let e = <KeyboardEvent> event;
-        console.log('e which->', e.which, e.keyCode, e.detail);
         if (this.validCurrency) {
             if (e.which === 64 || e.which === 16) {  
                 return true;  
@@ -27,6 +26,18 @@ export class ValidCurrencyDirective {
                 e.preventDefault();  
                 return false;  
             }  
+        }
+    }
+
+    @HostListener('blur', ['$event']) onBlur(event:any) {
+
+        if (event.target.value === '0') {
+            event.target.value = event.target.value.concat('.00');
+        } else if (event.target.value.indexOf('.') === event.target.value.length - 1) {
+            event.target.value = event.target.value.concat('00');
+        } else if (event.target.value.indexOf('.') > -1 
+            && (event.target.value.length - 1) - event.target.value.indexOf('.') ===  1) {
+            event.target.value = event.target.value.concat('0');
         }
     }
 
