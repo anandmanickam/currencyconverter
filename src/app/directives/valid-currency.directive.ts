@@ -1,14 +1,38 @@
 import { Directive, Renderer2, ElementRef, HostListener, Input } from '@angular/core';
 
+/**
+ * Angular 2 directive that binds to an input field to make it confirm to standard currency format.
+ * Listens to input event filters the event based on set conditions
+ * 
+ * @export
+ * @class ValidCurrencyDirective
+ */
 @Directive({
   selector: '[ValidCurrency]'
 })
 export class ValidCurrencyDirective {
 
+    /**
+     * Creates an instance of ValidCurrencyDirective.
+     * @param {Renderer2} renderer 
+     * @param {ElementRef} el 
+     * 
+     * @memberOf ValidCurrencyDirective
+     */
     constructor(private renderer: Renderer2, private el: ElementRef) { }
     @Input('ValidCurrency') validCurrency: boolean;
     @Input('CurtDecimals') decimalPlaces: boolean;
 
+    /**
+     * Listener 1
+     * Binding - keydown
+     * Allows only numeric keys to propogate.
+     * Allows only a single period( Dot .) key to the input field
+     * @param {*} event 
+     * @returns boolean
+     * 
+     * @memberOf ValidCurrencyDirective
+     */
     @HostListener('keydown', ['$event']) onKeyDown(event:any) {
         let e = <KeyboardEvent> event;
         if (this.validCurrency) {
@@ -29,19 +53,18 @@ export class ValidCurrencyDirective {
         }
     }
 
-    @HostListener('blur', ['$event']) onBlur(event:any) {
-
-        if (event.target.value === '0') {
-            event.target.value = event.target.value.concat('.00');
-        } else if (event.target.value.length > 0 
-            && event.target.value.indexOf('.') === event.target.value.length - 1) {
-            event.target.value = event.target.value.concat('00');
-        } else if (event.target.value.indexOf('.') > -1 
-            && (event.target.value.length - 1) - event.target.value.indexOf('.') ===  1) {
-            event.target.value = event.target.value.concat('0');
-        }
-    }
-
+    /**
+     * Listener 2
+     * Binding - keypress
+     * Contract for Currency Format.
+     * Calculates current cursor position and allows unlimited addition to fixed part of the input
+     *  while the floating part of the input is curtailed to 2 decimal places.
+     * Additionally it allows Backspace, Delete, and X-axis arrow keys to operate on decimal part. 
+     * @param {*} event 
+     * @returns boolean
+     * 
+     * @memberOf ValidCurrencyDirective
+     */
     @HostListener('keypress', ['$event']) onKeyPress(event:any) {
         let e = <any> event
     
@@ -61,6 +84,26 @@ export class ValidCurrencyDirective {
             e.preventDefault(); 
           }
         }  
-      }
-    
+    }
+
+    /**
+     * Listener 3
+     * Binding blur event
+     * Conforms the strctural integrity of the current input value when user blurs out of the input field.
+     * @param {*} event 
+     * 
+     * @memberOf ValidCurrencyDirective
+     */
+    @HostListener('blur', ['$event']) onBlur(event: any) {
+
+        if (event.target.value === '0') {
+            event.target.value = event.target.value.concat('.00');
+        } else if (event.target.value.length > 0
+            && event.target.value.indexOf('.') === event.target.value.length - 1) {
+            event.target.value = event.target.value.concat('00');
+        } else if (event.target.value.indexOf('.') > -1
+            && (event.target.value.length - 1) - event.target.value.indexOf('.') === 1) {
+            event.target.value = event.target.value.concat('0');
+        }
+    }
 }

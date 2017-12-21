@@ -4,6 +4,13 @@ import { ActionTypes} from './../constants/app.constants';
 import { AppState } from './../models/app-state.model';
 import { WidgetModel } from './../models/converter-widget.model'
 
+/**
+ * A nested reducer that modifies an induvidual widget model pbject in the widget models
+ *  array of the app state.
+ * @param {WidgetModel[]} state 
+ * @param {Action} action 
+ * @returns {WidgetModel[]} 
+ */
 export const widgetReducer: Reducer<WidgetModel[]> =
   (state: WidgetModel[], action: Action): WidgetModel[] => {
 

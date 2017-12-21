@@ -12,11 +12,21 @@ import { ConverterComponent} from './converter-widget.component';
 import { WidgetModel } from '../models/converter-widget.model';
 import { CurrencyModel } from '../models/app.currency.model';
 
+/**
+ * The main component whiich initialises the converter widgets and sets the initial conversion rates 
+ * for the components in the store.
+ * 
+ * @export
+ * @class ContainerComponent
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'my-app',
   templateUrl: 'app/views/container.component.htm',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: ['node_modules/@salesforce-ux/design-system/assets/styles/salesforce-lightning-design-system.min.css'],
+  styleUrls: [
+    'node_modules/@salesforce-ux/design-system/assets/styles/salesforce-lightning-design-system.min.css'
+  ],
   providers: [appStoreProvider , HttpServiceProvider]
 })
 
@@ -24,10 +34,27 @@ export class ContainerComponent implements OnInit {
 
   widgetModels: WidgetModel[] = [];
 
+  /**
+   * Creates an instance of ContainerComponent.
+   * @param {HttpServiceProvider} _httpservice 
+   * @param {Store<AppState>} store 
+   * 
+   * @memberOf ContainerComponent
+   */
   constructor ( private _httpservice: HttpServiceProvider,
                 @Inject(AppStore) private store: Store<AppState>
               ) {}
 
+  /**
+   * ngOnInit method invokes right after constructor initiation and fires the httpservice call to load the  
+   * initial Currency Exchange Rates. Upon successful response from the external service, fires the dispatch
+   * call to store to initiate the Application level Store Object model.
+   * Incase of http failure, the method sets up the widget models with empty objects and sets
+   * 'isHttpRatesFetched' to false, which will trigger the induvidual widgets to throw an http error
+   * response in the widget space.
+   * 
+   * @memberOf ContainerComponent
+   */
   ngOnInit() {
   
     this._httpservice.fetch(Constants.API_URL, 'base=' + Constants.CURRENCY_TYPES_ARRAY[0])

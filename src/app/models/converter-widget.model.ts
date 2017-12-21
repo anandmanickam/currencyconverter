@@ -1,5 +1,12 @@
 import {CurrencyModel} from './app.currency.model';
 
+/**
+ * The Widget model that consists of two copies of currency model for both conversion currency
+ * and converted currency.   
+ * 
+ * @export
+ * @class WidgetModel
+ */
 export class WidgetModel {
 
   fromCurrency: CurrencyModel;
@@ -11,9 +18,6 @@ export class WidgetModel {
   }
 
   switchCurrencies(){
-    let _temp:CurrencyModel = Object.assign({}, this.fromCurrency);
-    this.fromCurrency = Object.assign({}, this.toCurrency);
-    _temp.currencyRates = {rates:{}};
-    this.toCurrency = {..._temp};
+    [this.fromCurrency, this.toCurrency] = [this.toCurrency, this.fromCurrency];
   }
 }
