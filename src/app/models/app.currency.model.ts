@@ -10,7 +10,7 @@ export class CurrencyModel {
 
   constructor(
     _currencyType: string = Constants.CURRENCY_TYPES_ARRAY[0],
-    _currencyValue: string = '0.00',
+    _currencyValue?: string,
     _currencyRates?: {rates:{}}
   ){
     this.currencyType = _currencyType;

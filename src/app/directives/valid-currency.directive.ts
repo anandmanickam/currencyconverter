@@ -31,11 +31,10 @@ export class ValidCurrencyDirective {
 
     @HostListener('blur', ['$event']) onBlur(event:any) {
 
-        if (event.target.value === '') {
-            event.target.value = event.target.value.concat('0.00');
-        }if (event.target.value === '0') {
+        if (event.target.value === '0') {
             event.target.value = event.target.value.concat('.00');
-        } else if (event.target.value.indexOf('.') === event.target.value.length - 1) {
+        } else if (event.target.value.length > 0 
+            && event.target.value.indexOf('.') === event.target.value.length - 1) {
             event.target.value = event.target.value.concat('00');
         } else if (event.target.value.indexOf('.') > -1 
             && (event.target.value.length - 1) - event.target.value.indexOf('.') ===  1) {
