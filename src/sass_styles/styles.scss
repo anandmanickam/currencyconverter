@@ -6,6 +6,19 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
+/* Placeholder fix for IE*/ 
+input.slds-input::-ms-input-placeholder { 
+  color: rgb(172, 172, 172); 
+}
+/* Placeholder customization for Chrome*/ 
+input::-webkit-input-placeholder {
+  color: rgb(172, 172, 172); 
+}
+/* Placeholder customization for Firefox*/ 
+input::-moz-placeholder {
+  color: rgb(172, 172, 172); 
+}
+
 @mixin border-factor($width,$style,$color){
 
   border-width: $width;
