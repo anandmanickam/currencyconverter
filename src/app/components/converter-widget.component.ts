@@ -109,14 +109,17 @@ export class ConverterComponent {
    */
   fetchAndCalcCurRates(_baseCur:string){
     this._httpservice.fetch(Constants.API_URL, 'base=' + _baseCur)
-      .subscribe((response) => {
+      .subscribe(
+        (response) => {
           if (Object.keys(response).length !== 0) {
             this._widgetModel.fromCurrency.currencyRates = response;
             this.calculateRates();
-          } else {
+          } 
+        },
+        (error) => {
             this.httpErrFlg = true;
-          }
-      });
+        }
+      );
   }
 
   keyBindVerify(event:KeyboardEvent){

@@ -29,10 +29,6 @@ export class HttpServiceProvider {
   fetch (_externalUrl:string, _baseParam:string): Observable<any> {
     const _url = _externalUrl.concat(_baseParam.length > 0 ? '?' + _baseParam:'');
     return this._http.get(_url)
-      .map((response: Response) => response.json())
-      .catch((error: any) => {
-        console.log('error caught at httpservice ->', error);
-        return Observable.of({});
-      });
+      .map((response: Response) => response.json());
   }
 }

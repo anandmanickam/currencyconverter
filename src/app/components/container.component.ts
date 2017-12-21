@@ -57,17 +57,27 @@ export class ContainerComponent implements OnInit {
    */
   ngOnInit() {
   
+    var _httpResponse = true;
     this._httpservice.fetch(Constants.API_URL, 'base=' + Constants.CURRENCY_TYPES_ARRAY[0])
-    .subscribe((response) => {
-      var _httpResponse = true;
-      if (Object.keys(response).length > 0) {
-        for (var _i = 0; _i < Constants.WIDGET_INSTANCE; _i++){
-          var _indexModel = new WidgetModel(
-            new CurrencyModel(Constants.CURRENCY_TYPES_ARRAY[0], '', response),
-            new CurrencyModel(Constants.CURRENCY_TYPES_ARRAY[1],'0.00'));
-          this.widgetModels.push(_indexModel);
+    .subscribe(
+      /* On Success */
+      (response) => {
+        if (Object.keys(response).length > 0 && response.status !==0) {
+          for (var _i = 0; _i < Constants.WIDGET_INSTANCE; _i++){
+            var _indexModel = new WidgetModel(
+              new CurrencyModel(Constants.CURRENCY_TYPES_ARRAY[0], '', response),
+              new CurrencyModel(Constants.CURRENCY_TYPES_ARRAY[1],'0.00'));
+            this.widgetModels.push(_indexModel);
+          }
         }
-      } else {
+        this.store.dispatch(initStore({
+          'widgetModels': this.widgetModels,
+          isHttpRatesFetched: _httpResponse
+        }));
+      },
+      /* On Error */
+      (error) => {
+        console.log('error reached here...');
         for (var _i = 0; _i < Constants.WIDGET_INSTANCE; _i++) {
           var _indexModel = new WidgetModel(
             new CurrencyModel(Constants.CURRENCY_TYPES_ARRAY[0]),
@@ -75,12 +85,11 @@ export class ContainerComponent implements OnInit {
           this.widgetModels.push(_indexModel);
         }
         _httpResponse = false;
-      }
-      this.store.dispatch(initStore({ 
-        'widgetModels': this.widgetModels,
-        isHttpRatesFetched: _httpResponse 
-      }));
-    });
-  
+        this.store.dispatch(initStore({
+          'widgetModels': this.widgetModels,
+          isHttpRatesFetched: _httpResponse
+        }));
+      });
   }
+
 }

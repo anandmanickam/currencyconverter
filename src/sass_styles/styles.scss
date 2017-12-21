@@ -93,8 +93,9 @@ input::-moz-placeholder {
 .alert-danger{
 
   color: red;
-  background-color: #eded7b;
-
+  max-width: 250px;
+  padding: 10px;
+  
 }
 
 .footnote {
