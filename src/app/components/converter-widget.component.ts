@@ -1,11 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs';
 import { Store } from 'redux';
 
 import { AppStore } from './../store/store.token';
 import { AppState } from './../models/app-state.model';
-import { appStoreProvider } from './../store/app.store';
 import { WidgetModel } from '../models/converter-widget.model';
 import { Constants } from '../constants/app.constants';
 import { HttpServiceProvider } from '../services/http-service.component';
@@ -26,15 +23,15 @@ import * as WidgetActions from '../actions/widget.actions';
   providers: [HttpServiceProvider],
 })
 
-export class ConverterComponent { 
-  
-  static widgetMark:number = -1;
-  widgetInstance:number;
-  _widgetModel:WidgetModel;
-  currencyTypes:string[] = Constants.CURRENCY_TYPES_ARRAY;
-  httpErrFlg:boolean = false;
-  httpErrMsg:string =  Constants.HTTP_ERROR_MSG
-  disclaimerStatus:boolean = false;
+export class ConverterComponent {
+
+  static widgetMark: number = -1;
+  widgetInstance: number;
+  _widgetModel: WidgetModel;
+  currencyTypes: string[] = Constants.CURRENCY_TYPES_ARRAY;
+  httpErrFlg: boolean = false;
+  httpErrMsg: string =  Constants.HTTP_ERROR_MSG;
+  disclaimerStatus: boolean = false;
 
   /**
    * Creates an instance of ConverterComponent. It also subscribes to the store model to update the 
@@ -46,7 +43,7 @@ export class ConverterComponent {
    */
   constructor(private _httpservice: HttpServiceProvider,
     @Inject(AppStore) private store: Store<AppState>
-  ) { 
+  ) {
     this.widgetInstance = ++ConverterComponent.widgetMark;
     this._widgetModel =
       new WidgetModel(new CurrencyModel(), new CurrencyModel(Constants.CURRENCY_TYPES_ARRAY[1]));
@@ -58,11 +55,11 @@ export class ConverterComponent {
    * Loads the widget model from the store model
    * @memberOf ConverterComponent
    */
-  loadWidgetFromStore(){
+  loadWidgetFromStore() {
     this._widgetModel = this.store.getState().widgetModels[this.widgetInstance];
     this.httpErrFlg = !this.store.getState().isHttpRatesFetched;
   }
-   
+
   synthesisEvent = (value: any, name: string, type: string) => {
     return {'target': { value, name, type}};
   }
@@ -73,10 +70,10 @@ export class ConverterComponent {
    * 
    * @param {*} event 
    */
-  onInputChange(event: any){
-    if(this.ValidateInputField(event)){
+  onInputChange(event: any) {
+    if (this.ValidateInputField(event)) {
       this._widgetModel.fromCurrency.currencyValue = event.target.value;
-      this.calculateRates();      
+      this.calculateRates();
     }
   }
 
@@ -89,7 +86,7 @@ export class ConverterComponent {
    */
   onSelectionChange(event: any) {
     this.httpErrFlg = false;
-    if(event.target.name === Constants.FROM_CURRENCY){
+    if (event.target.name === Constants.FROM_CURRENCY) {
       this._widgetModel.fromCurrency.currencyType = event.target.value;
       this.fetchAndCalcCurRates(this._widgetModel.fromCurrency.currencyType);
     } else {
@@ -97,7 +94,7 @@ export class ConverterComponent {
     }
     this.calculateRates();
     }
-  
+
   /**
    * Acceps the url and base currency and invokes a call to the http service to fetch the lates currency.
    * The subscription sets the response to the from currency rates and invokes the calculation method.
@@ -107,14 +104,14 @@ export class ConverterComponent {
    * 
    * @memberOf ConverterComponent
    */
-  fetchAndCalcCurRates(_baseCur:string){
+  fetchAndCalcCurRates(_baseCur: string) {
     this._httpservice.fetch(Constants.API_URL, 'base=' + _baseCur)
       .subscribe(
         (response) => {
           if (Object.keys(response).length !== 0) {
             this._widgetModel.fromCurrency.currencyRates = response;
             this.calculateRates();
-          } 
+          }
         },
         (error) => {
             this.httpErrFlg = true;
@@ -122,8 +119,8 @@ export class ConverterComponent {
       );
   }
 
-  keyBindVerify(event:KeyboardEvent){
-    if(event.which == 32 || event.which == 13){
+  keyBindVerify(event: KeyboardEvent) {
+    if (event.which === 32 || event.which === 13) {
       this.toggleDisclaimer();
     }
   }
@@ -131,7 +128,6 @@ export class ConverterComponent {
   toggleDisclaimer() {
     this.disclaimerStatus = !this.disclaimerStatus;
   }
-  
 
   /**
    * The primary method to calculate the currency rates.
@@ -140,15 +136,14 @@ export class ConverterComponent {
    * 
    * @memberOf ConverterComponent
    */
-  calculateRates(){
-    this._widgetModel.toCurrency.currencyValue = 
+  calculateRates() {
+    this._widgetModel.toCurrency.currencyValue =
     (Number((
       ( this._widgetModel.fromCurrency.currencyRates.rates[this._widgetModel.toCurrency.currencyType] || 1) *
       ( Number.parseFloat(this._widgetModel.fromCurrency.currencyValue)  || 0)
     ).toFixed(2))).toString();
-      this.store.dispatch(WidgetActions.updateCurrencyValues(this._widgetModel,this.widgetInstance));
+      this.store.dispatch(WidgetActions.updateCurrencyValues(this._widgetModel, this.widgetInstance));
   }
-
 
   /**
    * Validates if the event can propagate by checking the validity of conversion rates
@@ -158,8 +153,8 @@ export class ConverterComponent {
    * 
    * @memberOf ConverterComponent
    */
-  ValidateInputField(event:any){
-    if(this.httpErrFlg){
+  ValidateInputField(event: any) {
+    if (this.httpErrFlg) {
       return false;
     }
     return true;

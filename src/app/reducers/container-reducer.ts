@@ -2,14 +2,15 @@ import {Action} from './../actions/action.def';
 import { Reducer} from './../reducers/reducer.def';
 import { ActionTypes} from './../constants/app.constants';
 import { AppState} from './../models/app-state.model';
-import { WidgetModel } from './../models/converter-widget.model'
+import { WidgetModel } from './../models/converter-widget.model';
 import { widgetReducer } from './widget-reducer';
 
 /* App state initialisation */
-var emptyWidgetModelArray: WidgetModel[] = [];
-const initialState: AppState = { 
-  widgetModels: emptyWidgetModelArray,
-  isHttpRatesFetched: true };
+const emptyWidgetModelArray: WidgetModel[] = [],
+  initialState: AppState = {
+    widgetModels: emptyWidgetModelArray,
+    isHttpRatesFetched: true
+  };
 
 /**
  * The container reducer that nests the converter widget reducer. 
@@ -24,7 +25,7 @@ export const containerReducer: Reducer<AppState> =
 
       case ActionTypes.LOAD_STORE:
         return Object.assign({}, state, action.payload);
-      
+
       default:
         return {...state, widgetModels: widgetReducer(state.widgetModels, action)};
     }

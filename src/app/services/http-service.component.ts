@@ -3,7 +3,6 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { of } from 'rxjs/observable/of';
 
 /**
  * An injectable service that fetches data from external endpoints. 
@@ -26,8 +25,8 @@ export class HttpServiceProvider {
    * @param {string} _baseParam 
    * @returns {Observable<any>} 
    */
-  fetch (_externalUrl:string, _baseParam:string): Observable<any> {
-    const _url = _externalUrl.concat(_baseParam.length > 0 ? '?' + _baseParam:'');
+  fetch (_externalUrl: string, _baseParam: string): Observable<any> {
+    const _url = _externalUrl.concat(_baseParam.length > 0 ? '?' + _baseParam : '');
     return this._http.get(_url)
       .map((response: Response) => response.json());
   }

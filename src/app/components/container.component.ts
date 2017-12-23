@@ -8,7 +8,6 @@ import { initStore } from './../actions/container.actions';
 
 import { Constants } from './../constants/app.constants';
 import { HttpServiceProvider } from '../services/http-service.component';
-import { ConverterComponent} from './converter-widget.component';
 import { WidgetModel } from '../models/converter-widget.model';
 import { CurrencyModel } from '../models/app.currency.model';
 
@@ -31,7 +30,7 @@ import { CurrencyModel } from '../models/app.currency.model';
   providers: [appStoreProvider , HttpServiceProvider]
 })
 
-export class ContainerComponent implements OnInit { 
+export class ContainerComponent implements OnInit {
 
   widgetModels: WidgetModel[] = [];
 
@@ -57,17 +56,17 @@ export class ContainerComponent implements OnInit {
    * @memberOf ContainerComponent
    */
   ngOnInit() {
-  
-    var _httpResponse = true;
+
+    let _httpResponse = true;
     this._httpservice.fetch(Constants.API_URL, 'base=' + Constants.CURRENCY_TYPES_ARRAY[0])
     .subscribe(
       /* On Success */
       (response) => {
-        if (Object.keys(response).length > 0 && response.status !==0) {
-          for (var _i = 0; _i < Constants.WIDGET_INSTANCE; _i++){
-            var _indexModel = new WidgetModel(
+        if (Object.keys(response).length > 0 && response.status !== 0) {
+          for (let _i = 0; _i < Constants.WIDGET_INSTANCE; _i++) {
+            let _indexModel = new WidgetModel(
               new CurrencyModel(Constants.CURRENCY_TYPES_ARRAY[0], '', response),
-              new CurrencyModel(Constants.CURRENCY_TYPES_ARRAY[1],'0.00'));
+              new CurrencyModel(Constants.CURRENCY_TYPES_ARRAY[1], '0.00'));
             this.widgetModels.push(_indexModel);
           }
         }
@@ -79,8 +78,8 @@ export class ContainerComponent implements OnInit {
       /* On Error */
       (error) => {
         console.log('error reached here...');
-        for (var _i = 0; _i < Constants.WIDGET_INSTANCE; _i++) {
-          var _indexModel = new WidgetModel(
+        for (let _i = 0; _i < Constants.WIDGET_INSTANCE; _i++) {
+          let _indexModel = new WidgetModel(
             new CurrencyModel(Constants.CURRENCY_TYPES_ARRAY[0]),
             new CurrencyModel(Constants.CURRENCY_TYPES_ARRAY[1]));
           this.widgetModels.push(_indexModel);

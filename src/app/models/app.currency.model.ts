@@ -21,7 +21,7 @@ export class CurrencyModel {
    * @memberOf CurrencyModel
    */
   currencyValue: string;
-  
+
   /**
    * The Currency Rate that is only mandatory for From Currency  
    * @type {{
@@ -31,7 +31,7 @@ export class CurrencyModel {
    */
   currencyRates: {
     rates: {}
-  }; 
+  };
 
   /**
    * Creates an instance of CurrencyModel.
@@ -44,11 +44,11 @@ export class CurrencyModel {
   constructor(
     _currencyType: string = Constants.CURRENCY_TYPES_ARRAY[0],
     _currencyValue?: string,
-    _currencyRates?: {rates:{}}
-  ){
+    _currencyRates?: {rates: {}}
+  ) {
     this.currencyType = _currencyType;
     this.currencyValue = _currencyValue;
-    this.currencyRates = _currencyRates || {rates:{}};
+    this.currencyRates = _currencyRates || {rates: {}};
   }
 
 }

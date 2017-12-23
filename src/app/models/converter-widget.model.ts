@@ -12,12 +12,12 @@ export class WidgetModel {
   fromCurrency: CurrencyModel;
   toCurrency: CurrencyModel;
 
-  constructor(_fromCurrency: CurrencyModel, _toCurrency: CurrencyModel){
+  constructor(_fromCurrency: CurrencyModel, _toCurrency: CurrencyModel) {
     this.fromCurrency = _fromCurrency;
-    this.toCurrency = _toCurrency
+    this.toCurrency = _toCurrency;
   }
 
-  switchCurrencies(){
+  switchCurrencies() {
     [this.fromCurrency, this.toCurrency] = [this.toCurrency, this.fromCurrency];
   }
 }
