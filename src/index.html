@@ -2,18 +2,21 @@
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
-    <title>Currency Converter</title>
-    <base href="/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Currency Converter</title>
+    <base href="/">
 
     <!-- Polyfill(s) for older browsers -->
     <script src="assets/Intl.min.js"></script>
     <script src="assets/en-IN.js"></script>
     <script src="assets/shim.min.js"></script>
+    <script>
+      __Zone_enable_cross_context_check = true;
+    </script>
     <script src="assets/zone.min.js"></script>
   </head>
-
+  
   <body>
     <my-app>Loading ...</my-app>
     <script src="app.bundle.js"></script>
