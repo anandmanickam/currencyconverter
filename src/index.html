@@ -7,22 +7,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- stylesheet imports -->
-    <link rel="stylesheet" href="css_styles/styles.css">
-
     <!-- Polyfill(s) for older browsers -->
-    <script src="node_modules/intl/dist/Intl.min.js"></script>
-    <script src="node_modules/intl/locale-data/jsonp/en-IN.js"></script>
-    <script src="node_modules/core-js/client/shim.min.js"></script>
-    <script src="node_modules/zone.js/dist/zone.js"></script>
-    <script src="node_modules/systemjs/dist/system.src.js"></script>
-    <script src="systemjs.config.js"></script>
-    <script>
-      System.import('./dist/main.js').catch(function(err){ console.error(err); });
-    </script>
+    <script src="assets/Intl.min.js"></script>
+    <script src="assets/en-IN.js"></script>
+    <script src="assets/shim.min.js"></script>
+    <script src="assets/zone.min.js"></script>
   </head>
 
   <body>
     <my-app>Loading ...</my-app>
+    <script src="app.bundle.js"></script>
   </body>
 </html>

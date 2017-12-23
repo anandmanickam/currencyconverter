@@ -3,7 +3,7 @@
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "./../../dist",
+    "outDir": "./dist",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -12,9 +12,9 @@
     "suppressImplicitAnyIndexErrors": true
   },
   "include": [
-    "../../../src/**/*"
+    "./src/**/*"
   ],
   "exclude": [
-    "../../../node_modules"
+    "./node_modules"
   ]
 }

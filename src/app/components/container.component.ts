@@ -22,10 +22,11 @@ import { CurrencyModel } from '../models/app.currency.model';
  */
 @Component({
   selector: 'my-app',
-  templateUrl: 'app/views/container.component.htm',
+  templateUrl: '../views/container.component.htm',
   encapsulation: ViewEncapsulation.None,
   styleUrls: [
-    'node_modules/@salesforce-ux/design-system/assets/styles/salesforce-lightning-design-system.min.css'
+    '../../../node_modules/@salesforce-ux/design-system/assets/styles/salesforce-lightning-design-system.min.css',
+    '../../styles/styles.scss'
   ],
   providers: [appStoreProvider , HttpServiceProvider]
 })

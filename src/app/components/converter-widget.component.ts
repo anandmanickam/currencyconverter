@@ -22,7 +22,7 @@ import * as WidgetActions from '../actions/widget.actions';
  */
 @Component({
   selector: 'converter-widget',
-  templateUrl: 'app/views/converter-widget.component.htm',
+  templateUrl: '../views/converter-widget.component.htm',
   providers: [HttpServiceProvider],
 })
 
