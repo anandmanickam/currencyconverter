@@ -59,7 +59,7 @@ module.exports = {
             /angular(\\|\/)core(\\|\/)@angular/,
             './src',
             {}
-        ),
+        )
     ],
     resolve: {
         extensions: ['.ts', '.js', '.json']
