@@ -53,6 +53,7 @@ module.exports = {
         }),
         new CopyWebpackPlugin([
             { from: 'src/jsassets', to: 'assets' },
+            { from: 'src/assets', to: 'assets/icons' },
             { from: 'src/fonts', to: 'fonts/webfonts' }
         ]),
         new webpack.ContextReplacementPlugin(
