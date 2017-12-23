@@ -54,7 +54,12 @@ module.exports = {
         new CopyWebpackPlugin([
             { from: 'src/jsassets', to: 'assets' },
             { from: 'src/fonts', to: 'fonts/webfonts' }
-        ])
+        ]),
+        new webpack.ContextReplacementPlugin(
+            /angular(\\|\/)core(\\|\/)@angular/,
+            './src',
+            {}
+        ),
     ],
     resolve: {
         extensions: ['.ts', '.js', '.json']
